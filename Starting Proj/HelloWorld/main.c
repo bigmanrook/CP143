@@ -57,5 +57,12 @@ int main()
             printf("Tf month you born in cuz?");
             break;
     } /*Testing out switch and case statements*/
+
+    //test out repeat until loop
+
+    //test out while loop
+
+    //test nested if statements
+
     return 0;
 }
