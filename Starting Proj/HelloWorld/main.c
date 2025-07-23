@@ -6,6 +6,7 @@ int main()
     float bankaccount = 500.55, expense = 300.5; /*Testing out variables and data types in C*/
     int date = 2, month = 8, year = 2006;
     const char myName[] = "Jude";
+    char mySurname[] = "";
     printf("Hello world!\n");
     printf("My name is: %s\n", myName);
     printf("my birthday is: %d of %d in the year %d\n", date, month, year);
@@ -59,7 +60,11 @@ int main()
     } /*Testing out switch and case statements*/
 
     //test out repeat until loop
-
+    do {
+        printf("Please enter your Surname");
+        scanf("%s", mySurname);
+    }
+    while
     //test out while loop
 
     //test nested if statements
