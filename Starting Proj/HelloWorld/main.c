@@ -60,14 +60,12 @@ int main()
     } /*Testing out switch and case statements*/
 
     //test out repeat until loop
-    do {
-        printf("Please enter your Surname");
-        scanf("%s", mySurname);
-    }
-    while
+
     //test out while loop
 
     //test nested if statements
+
+    /* Dealing with pointers - referencing, dereferencing, etc */
 
     return 0;
 }
