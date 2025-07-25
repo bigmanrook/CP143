@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main()
 {
     float bankaccount = 500.55, expense = 300.5; /*Testing out variables and data types in C*/
     int date = 2, month = 8, year = 2006;
     const char myName[] = "Jude";
-    char mySurname[] = "";
+    char myCode[5];
     printf("Hello world!\n");
     printf("My name is: %s\n", myName);
     printf("my birthday is: %d of %d in the year %d\n", date, month, year);
@@ -60,6 +61,16 @@ int main()
     } /*Testing out switch and case statements*/
 
     //test out repeat until loop
+    int result;
+    char stringcompare[] = "2886";
+    do {
+        printf("\nWhat is the code?: ");
+        scanf("%s", &myCode);
+        result = strcmp(stringcompare, myCode);
+    }
+    while (result != 0);
+
+
 
     //test out while loop
 
