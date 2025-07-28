@@ -4,7 +4,7 @@
 int main()
 {
     int input = 1, answer=0, remainder;;
-    int counter = 0, temp=0, longest=0, comparison=0;
+    int counter = 0, temp=0, longest=0, longestiter=0, comparison=0;
     int iter, i=0;
 
     printf("Please enter how many times the algorithm should iterate:\n");
@@ -35,20 +35,23 @@ int main()
             counter = counter+1;
             } while (answer != 1);
             comparison = longest;
+
             temp = counter;
 
             if (comparison > temp) {
                 longest = comparison;
+                longestiter = i-1;
             }
             else {
                 longest = temp;
+                longestiter = i;
             }
 
-            printf("Prev iter: %d and Present iter: %d and longest step: %d\n", comparison, temp, longest);
+            //printf("Prev iter: %d and Present iter: %d and longest step: %d\n", comparison, temp, longest);
 
 
 
-            printf("Iteration %d complete: input = %d, steps: %d\n",i+1, input, counter);
+            //printf("Iteration %d complete: input = %d, steps: %d\n",i+1, input, counter);
             input++;
             i++;
 
@@ -56,7 +59,7 @@ int main()
     }
     while (i<iter);
 
-    printf("longest iteration took: %d steps\n", longest);
+    printf("longest iteration at iteration: %d , took: %d steps\n", longestiter, longest);
 
 
     return 0;
