@@ -1,66 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
-{
-    int input = 1, answer=0, remainder;;
-    int counter = 0, temp=0, longest=0, longestiter=0, comparison=0;
-    int iter, i=0;
+int collatzconjecture(unsigned long long n) {
+    int steps = 0;
 
-    printf("Please enter how many times the algorithm should iterate:\n");
+    while (n != 1) {
+        if (n % 2 == 0) {
+            n /= 2;
+            steps=steps+1;
+        } else {
+            // Check if 3 * n + 1 would overflow
+            if (n > (ULLONG_MAX - 1) / 3) {
+                printf("Overflow would occur at n = %llu\n", n);
+                break;
+            }
+            n = 3ULL * n + 1ULL;
+            steps=steps+1;
+        }
+        printf("%llu\n", n);
+    }
+
+    return steps;
+}
+
+int main() {
+    int steps = 0, max_steps = 0;
+    int iter, max_iter = 1;
+
+    /* printf("Please enter how many times the algorithm should iterate:\n");
     scanf("%d", &iter);
 
+    for (int i = 1; i <= iter; i++) {
+        //steps = collatzconjecture(i);
 
 
-    do {
-        answer = input;
+        if (steps > max_steps) {
+            max_steps = steps;
+            max_iter = i;
+        }
 
-
-
-        counter=0;
-
-
-        do {
-            /* printf("Please enter a number to prove the collatz conjecture!\n");
-            scanf("%d", &input); */ //for manual value input
-
-
-            remainder = answer % 2;
-            if (remainder > 0) {
-                answer = 3*answer+1;
-            }
-            else {
-                answer = answer/2;
-            }
-            counter = counter+1;
-            } while (answer != 1);
-            comparison = longest;
-
-            temp = counter;
-
-            if (comparison > temp) {
-                longest = comparison;
-                longestiter = i-1;
-            }
-            else {
-                longest = temp;
-                longestiter = i;
-            }
-
-            //printf("Prev iter: %d and Present iter: %d and longest step: %d\n", comparison, temp, longest);
-
-
-
-            //printf("Iteration %d complete: input = %d, steps: %d\n",i+1, input, counter);
-            input++;
-            i++;
-
-
-    }
-    while (i<iter);
-
-    printf("longest iteration at iteration: %d , took: %d steps\n", longestiter, longest);
-
+        //printf("Iteration %d complete: input = %d, steps: %d\n", i, i, steps);
+    } */
+    steps = collatzconjecture(35655);
+    printf("Longest sequence was for input: 35655, with %d steps.\n",steps);
 
     return 0;
-    }
+}
+
