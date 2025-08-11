@@ -1,5 +1,6 @@
 # depslib dependency file v1.0
-1753267376 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\starting proj\helloworld\main.c
+1753437298 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\starting proj\helloworld\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 
