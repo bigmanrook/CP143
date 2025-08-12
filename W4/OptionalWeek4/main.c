@@ -3,7 +3,8 @@
 #include <math.h>
 #include <time.h>
 float random;
-int MonteCarlo();
+int CirclePoints();
+int SquarePoints(), TotalPoints;
 
 int Random(){
 
@@ -18,9 +19,9 @@ int Random(){
 
 }
 
-int MonteCarlo(){
+int CirclePoints(){
 
-    int TotalPoints=0,total, CirclePoints=0;
+    int total, CirclePoints=0;
     float x, y. distance;
 
     for (i=0; i<=input; i++){
@@ -30,12 +31,28 @@ int MonteCarlo(){
     if ((x*x+y*y)<=1){
 
         CirclePoints++;
-        TotalPoints++
 
     }
-    else
-        TotalPoints++;
 
+    //Algorithm: Generate points, ensure points are within range, count how many points there are, divide by area of square (can skip, as area of square is 1), multiply by 4
+
+
+return CirclePoints;
+
+}
+
+int SquarePoints(){
+
+    int total, CirclePoints=0;
+    float x, y. distance;
+
+    for (i=0; i<=input; i++){
+
+    x = Random();
+    y = Random();
+    if (((x*x+y*y)<=1)||(x*y<=1){
+
+        TotalPoints++;
 
     }
 
@@ -49,12 +66,12 @@ return TotalPoints;
 
 int main()
 {
-    float input, i, pi;
+    float input, i, pi, points, tpoints;
     int points;
     printf("Please enter in an iteration number");
     scanf("%d", &input);
-    points = MonteCarlo(input);
-    pi = points*4
+    points = CirclePoints(input);
+    tpoints = SquarePoints(input-points) + points;
 
 
 
