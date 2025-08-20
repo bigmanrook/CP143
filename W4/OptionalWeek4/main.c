@@ -2,76 +2,66 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-float random;
-int CirclePoints();
-int SquarePoints(), TotalPoints;
+int CirclePoints(int input);
+int SquarePoints(int input), TotalPoints;
 
-int Random(){
+int CirclePoints(int input){
 
-    srand((unsigned)time(NULL));
-
-    // Generate a random float between 0 and 1
-    float r = (float)rand() / (float)RAND_MAX;
-
-    printf("Random float: %f\n", r);
-
-    return random;
-
-}
-
-int CirclePoints(){
-
-    int total, CirclePoints=0;
-    float x, y. distance;
+    int total, c=0;
+    float x, y, distance, i;
 
     for (i=0; i<=input; i++){
 
-    x = Random();
-    y = Random();
+    x = rand()%1;
+    y = rand()%1;
     if ((x*x+y*y)<=1){
 
-        CirclePoints++;
+        c++;
 
     }
 
     //Algorithm: Generate points, ensure points are within range, count how many points there are, divide by area of square (can skip, as area of square is 1), multiply by 4
 
 
-return CirclePoints;
+return c;
 
 }
+}
 
-int SquarePoints(){
+int SquarePoints(int input){
 
-    int total, CirclePoints=0;
-    float x, y. distance;
+    int total, S=0, i;
+    float x, y, distance;
 
     for (i=0; i<=input; i++){
 
-    x = Random();
-    y = Random();
-    if (((x*x+y*y)<=1)||(x*y<=1){
+    x = rand()%1;
+    y = rand()%1;
+    if (x*y<=1){
 
-        TotalPoints++;
+        S++;
 
     }
 
     //Algorithm: Generate points, ensure points are within range, count how many points there are, divide by area of square (can skip, as area of square is 1), multiply by 4
 
 
-return TotalPoints;
+return S;
 
+}
 }
 
 
 int main()
 {
-    float input, i, pi, points, tpoints;
-    int points;
-    printf("Please enter in an iteration number");
-    scanf("%d", &input);
-    points = CirclePoints(input);
-    tpoints = SquarePoints(input-points) + points;
+    float input, i, pi, p, tp;
+    printf("Please enter in an iteration number:\n");
+    scanf("%f", &input);
+    p = CirclePoints(input);
+    tp = SquarePoints(input-p) + p;
+    printf("S is: %d, C is %d", pi);
+    pi = (float) tp/p;
+    printf("Pi is equivalent to: %f\n", pi);
 
 
 

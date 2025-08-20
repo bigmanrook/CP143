@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1755506631 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\w4\optionalweek4\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+
