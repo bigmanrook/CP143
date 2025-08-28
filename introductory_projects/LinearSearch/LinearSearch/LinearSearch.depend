@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1756201263 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\starting proj\linearsearch\linearsearch\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
