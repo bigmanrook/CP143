@@ -44,12 +44,13 @@ int GCD(int a, int b) {
 // MISSING CODE - YOUR CODE WILL BE INSERTED HERE
 int LCM(int a, int b){
 
-
+    //LCM(x, y) =
+    return (abs(a)*abs(b)/GCD(a, b));
 
 }
 
 int LCM3(int a, int b, int c){
 
-
+    return LCM(LCM(a,b),c);
 
 }
