@@ -8,8 +8,7 @@ int minsearch(int array[]);
 int linearsort(int array[]);
 int binarysearch(int array[], int search);
 int FillArrayRandom(int array[], int range);
-int ClosestInteger(int array[], search, lower, upper);
-
+int ClosestInteger(int search, mid, array[]);
 
 
 
@@ -87,12 +86,12 @@ int binarysearch(int array[], int search){
         }
 
     }
-    ClosestInteger(search, mid);
+    ClosestInteger(search, mid, array);
     return -1;
 
 }
 
-int FillArrayRandom(int range){
+int FillArrayRandom(int array[], int range){
 
     int h;
     srand(time(NULL));
@@ -103,7 +102,7 @@ int FillArrayRandom(int range){
 
 }
 
-int ClosestInteger(int search, mid){
+int ClosestInteger(int search, mid, array[]){
 
     if (array[mid]-array[mid-1]>array[mid+1]-array[mid]){
 
