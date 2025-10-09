@@ -30,8 +30,12 @@ int main()
     fclose(mynewfilePtr);
     //Append file
     mynewfilePtr=fopen("file.txt", "a");
+    fclose(mynewfilePtr);
 
     //Randomly access file
+    fseek(mynewfilePtr,OFFSET,SEEK_SET); //From the start position
+    //SEEK_SET, SEEK_CUR, SEEK_END
+    //OFFSET is how far from your reference point you want to go - you can use sizeof() if you stored specific variable types
 
 
     //Close file

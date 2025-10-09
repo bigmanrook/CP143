@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1759829242 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\assignment10a\theproject\main.c
+	<stdio.h>
+	<stdlib.h>
+	"libs.h"
+
+1759826796 c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\assignment10a\theproject\libs.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1759831497 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\assignment10a\theproject\libs.c
+	"libs.h"
+
+1759833818 source:d:\cp143\w10\assignment10a\theproject\main.c
+	<stdio.h>
+	<stdlib.h>
+	"libs.h"
+
+1759833508 d:\cp143\w10\assignment10a\theproject\libs.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1759991607 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\theproject\main.c
+	<stdio.h>
+	<stdlib.h>
+	"libs.h"
+
+1759987812 c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\theproject\libs.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1759991439 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\theproject\libs.c
+	"libs.h"
+
