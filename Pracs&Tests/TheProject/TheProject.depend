@@ -38,3 +38,17 @@
 1759991439 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w10\theproject\libs.c
 	"libs.h"
 
+1760384414 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\theproject\main.c
+	<stdio.h>
+	<stdlib.h>
+	"libs.h"
+
+1760382941 c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\theproject\libs.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1760384437 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\theproject\libs.c
+	"libs.h"
+

@@ -24,6 +24,7 @@ int main()
     Maze maze, MazeCopy;  // Not a pointer, or use malloc
     Coord startingpt;  // Not a pointer, or use malloc
     Coord goal;  // Not a pointer, or use malloc
+    List list = createList();
 
     // Initialize maze structure
     maze.rows = 0;
@@ -42,12 +43,16 @@ int main()
 
         MazeCopy = copyMaze(maze);
 
+
         do {
-
-            scanf("%c", &command);
+            printf("Enter in up (U), down (D), left (L) or right (R)\n");
+            scanf(" %c", &command);
             result = executeCommand(&MazeCopy, &startingpt, command);
+            addNodeAtFront(&list, startingpt);
+            printf("Agent's Coordinates: (%d, %d)\n", list.frontPtr->pos.x, list.frontPtr->pos.y);
 
-        } while (result=1);
+
+        } while (result!=SUCCESS);
 
         if (MazeCopy.data==NULL){
 
@@ -55,9 +60,6 @@ int main()
 
         }
         else {
-
-            //printMaze(stdout, MazeCopy);
-            //printf("Walls in last column: %d\n", countWallsInLastColumn(maze));
             emptyMaze(&maze);
             emptyMaze(&MazeCopy);
 
@@ -68,7 +70,6 @@ int main()
 
     }
 
-    List list=(List)malloc(sizeof(List));
 
 
 

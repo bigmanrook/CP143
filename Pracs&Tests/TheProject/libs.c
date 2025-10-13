@@ -167,13 +167,13 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y-1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y--;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y-1][x] == '.') {
                 mazePtr->data[y-1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y--;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
             }
             break;
 
@@ -191,13 +191,13 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y+1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y++;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y+1][x] == '.') {
                 mazePtr->data[y+1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y++;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
             }
             break;
 
@@ -214,13 +214,13 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y][x+1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x++;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y][x+1] == '.') {
                 mazePtr->data[y][x+1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x++;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
             }
             break;
 
@@ -237,13 +237,13 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y][x-1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x--;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y][x-1] == '.') {
                 mazePtr->data[y][x-1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x--;
-                printMaze(stdout, *mazePtr);
+                //printMaze(stdout, *mazePtr);
             }
             break;
 
@@ -257,16 +257,15 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
 
 List createList(){
 
-List *list=NULL;
-list=(List*)malloc(sizeof(List));
+List *list=malloc(sizeof(List));
 
-return list;
+return *list;
 
 }
 
 int isEmpty(List list){
 
-    if (*list==NULL){
+    if (list.frontPtr==NULL && list.backPtr==NULL){
         return 1;
     }
     return 0;
@@ -274,6 +273,53 @@ int isEmpty(List list){
 
 
 }
+
+void addNodeAtFront(List *listPtr, Coord pos){
+
+//List->frontPtr needs to become newPtr
+//Create newPtr
+//newPtr->data=whatever
+//newPtr->nextPtr=ist->frontPtr
+//List->frontPtr = newPtr;
+
+//Conditionals: Check if List is empty, if so, start list (frontPtr and backptr connected directly)
+//Conditional2: Check if only list not empty, then proceed normally
+    ListNode *newNode=malloc(sizeof(ListNode)); //Create node
+    newNode->pos.x=pos.x;
+    newNode->pos.y=pos.y; //Assign data
+    newNode->nextPtr=NULL;
+
+    if (listPtr->frontPtr == NULL){
+    listPtr->backPtr = newNode;
+}
+    else {
+
+    newNode->nextPtr=listPtr->frontPtr;
+    listPtr->frontPtr = newNode;
+
+    }
+
+
+
+
+}
+
+
+Coord removeNodeFromFront(List *listPtr){
+
+//List->frontPtr needs to become newPtr
+//Create newPtr
+//newPtr->data=whatever
+//newPtr->nextPtr=ist->frontPtr
+//List->frontPtr = newPtr;
+
+//Conditionals: Check if List is empty, if so, start list (frontPtr and backptr connected directly)
+//Conditional2: Check if only list not empty, then proceed normally
+
+//Fix these comments
+
+}
+
 
 
 
@@ -292,6 +338,5 @@ void clearList(List *listPtr){
     //Start at first ptr -> extract ptr, free node, move to next ptr and repeat (loop)
 
     }
-
 
 const char commandArray[] = {'U', 'D', 'L', 'R'};

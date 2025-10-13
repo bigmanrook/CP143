@@ -8,6 +8,15 @@
 
     //structures
 
+      typedef struct {
+    int rows, cols;
+    char **data;
+    } Maze;
+
+    typedef struct {
+    int x, y;
+    } Coord;
+
     struct listNode {
     Coord pos;
     struct listNode *nextPtr;
@@ -17,15 +26,6 @@
     typedef struct {
     ListNode *frontPtr, *backPtr;
     } List;
-
-      typedef struct {
-    int rows, cols;
-    char **data;
-    } Maze;
-
-    typedef struct {
-    int x, y;
-    } Coord;
 
 
     enum ResultType {SUCCESS, FAIL};
@@ -42,10 +42,13 @@
   Result executeCommand(Maze *mazePtr, Coord *posPtr, char command);
   List createList();
   int isEmpty(List list);
-  void addNodeAtBack(List *listPtr, Coord pos);
-  void addNodeAtFront(List *listPtr, Coord pos);
-  Coord removeNodeFromFront(List *listPtr);
+  void addNodeAtBack(List *listPtr, Coord pos); //Enqueue
+  void addNodeAtFront(List *listPtr, Coord pos);//Push function
+  Coord removeNodeFromFront(List *listPtr); //Pop function
   void clearList(List *listPtr);
+
+
+
 
 
 
