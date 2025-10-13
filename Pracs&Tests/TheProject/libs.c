@@ -254,4 +254,44 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
     return FAIL;
 }
 
+
+List createList(){
+
+List *list=NULL;
+list=(List*)malloc(sizeof(List));
+
+return list;
+
+}
+
+int isEmpty(List list){
+
+    if (*list==NULL){
+        return 1;
+    }
+    return 0;
+
+
+
+}
+
+
+
+void addNodeAtBack(List *listPtr, Coord pos){
+
+    //Create node
+    //Assign Node with Null Pointer with address of new node
+
+}
+
+
+
+void clearList(List *listPtr){
+
+    //Loop through list
+    //Start at first ptr -> extract ptr, free node, move to next ptr and repeat (loop)
+
+    }
+
+
 const char commandArray[] = {'U', 'D', 'L', 'R'};

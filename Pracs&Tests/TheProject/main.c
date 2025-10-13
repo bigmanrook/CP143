@@ -68,6 +68,8 @@ int main()
 
     }
 
+    List list=(List)malloc(sizeof(List));
+
 
 
 

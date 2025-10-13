@@ -7,6 +7,17 @@
 
 
     //structures
+
+    struct listNode {
+    Coord pos;
+    struct listNode *nextPtr;
+    };
+    typedef struct listNode ListNode;
+
+    typedef struct {
+    ListNode *frontPtr, *backPtr;
+    } List;
+
       typedef struct {
     int rows, cols;
     char **data;
@@ -21,7 +32,6 @@
     typedef enum ResultType Result;
     extern const char commandArray[];
 
-  // Header content here
   //function prototypes
   char getNextChar(FILE *file);
   void printMaze(FILE *stream, Maze maze);
@@ -30,6 +40,16 @@
   Result loadMaze(const char filename[], Maze *mazePtr, Coord *startPtr, Coord *goalPtr);
   int countWallsInLastColumn(Maze maze);
   Result executeCommand(Maze *mazePtr, Coord *posPtr, char command);
+  List createList();
+  int isEmpty(List list);
+  void addNodeAtBack(List *listPtr, Coord pos);
+  void addNodeAtFront(List *listPtr, Coord pos);
+  Coord removeNodeFromFront(List *listPtr);
+  void clearList(List *listPtr);
+
+
+
+
 
 
 

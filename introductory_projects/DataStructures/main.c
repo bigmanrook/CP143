@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 
 struct listNode {
     char ch;
@@ -12,23 +13,18 @@ int main()
 {
     node * headPtr;
     headPtr = malloc(sizeof(node));
-    headPtr->ch = 'H';
+    headPtr->ch = 'A';
+    headPtr->nextPtr = NULL;
 
-    node * AnodePtr;
-    AnodePtr = malloc(sizeof(node));
-    AnodePtr->ch = 'E';
-    AnodePtr->nextPtr = NULL;
-    headPtr->nextPtr = AnodePtr;
 
-    node * tmpNode = AnodePtr;  // Start from AnodePtr, not headPtr
-    char txt[] = "stuff";
-    int i;
+    node * tmpNode = headPtr;  // headPtr - making tmpNode point to headPtr
+    char txt[] = "BCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    for (i = 0; i < 5; i++) {
-        tmpNode->nextPtr = malloc(sizeof(node));
-        tmpNode = tmpNode->nextPtr;
-        tmpNode->ch = txt[i];
-        tmpNode->nextPtr = NULL;  // Initialize nextPtr to NULL
+    for (int i = 0; i < strlen(txt); i++) {
+        tmpNode->nextPtr = malloc(sizeof(node)); //first iteration, it allocates memory to Headptr's pointer member
+        tmpNode = tmpNode->nextPtr; //now it places its second paper down, and makes another node which is pointed to by the previous node
+        tmpNode->ch = txt[i]; //Assigning data to the node
+        tmpNode->nextPtr = NULL;  // Initialize nextPtr to NULL, which will in the next iteration be replaced with the next node, and in the last iteration be left as NULL
     }
 
     // Print from the beginning
