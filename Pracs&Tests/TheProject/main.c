@@ -45,7 +45,7 @@ int main()
 
 
         do {
-            printf("Enter in up (U), down (D), left (L) or right (R)\n");
+            printf("Enter in up (U), down (D), left (L) or right (R)\nw");
             scanf(" %c", &command);
             result = executeCommand(&MazeCopy, &startingpt, command);
             addNodeAtFront(&list, startingpt);
@@ -64,6 +64,10 @@ int main()
             emptyMaze(&MazeCopy);
 
         }
+
+        //Program needs one list storing all coordinates, that will then be stored in a textfile
+        //Create list -> store first node in front,
+        //Every node needs to be added from the back after that
 
 
 

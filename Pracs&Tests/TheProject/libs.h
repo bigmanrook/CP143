@@ -27,6 +27,12 @@
     ListNode *frontPtr, *backPtr;
     } List;
 
+    typedef struct {
+    char type[15];
+    double area;
+    char colour[10];
+    } Shape;
+
 
     enum ResultType {SUCCESS, FAIL};
     typedef enum ResultType Result;
@@ -40,12 +46,18 @@
   Result loadMaze(const char filename[], Maze *mazePtr, Coord *startPtr, Coord *goalPtr);
   int countWallsInLastColumn(Maze maze);
   Result executeCommand(Maze *mazePtr, Coord *posPtr, char command);
+  Result randomTraversal(const Maze *mazePtr, Coord start, Coord goal, List *pathPtr, int maxSteps);
+
+  //List function prototypes
+
   List createList();
   int isEmpty(List list);
   void addNodeAtBack(List *listPtr, Coord pos); //Enqueue
   void addNodeAtFront(List *listPtr, Coord pos);//Push function
   Coord removeNodeFromFront(List *listPtr); //Pop function
   void clearList(List *listPtr);
+  void printListContent(FILE *stream, List list);
+
 
 
 

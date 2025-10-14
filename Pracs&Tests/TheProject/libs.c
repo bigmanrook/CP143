@@ -307,16 +307,19 @@ void addNodeAtFront(List *listPtr, Coord pos){
 
 Coord removeNodeFromFront(List *listPtr){
 
-//List->frontPtr needs to become newPtr
-//Create newPtr
-//newPtr->data=whatever
-//newPtr->nextPtr=ist->frontPtr
-//List->frontPtr = newPtr;
+//List->frontPtr needs to become newPtr->nextptr
+//Create tmpPtr if you want to view node content
+//newPtr->nextPtr=NULL;
+//Free(ListPtr)
 
-//Conditionals: Check if List is empty, if so, start list (frontPtr and backptr connected directly)
-//Conditional2: Check if only list not empty, then proceed normally
+    ListNode *tmpNode=malloc(sizeof(ListNode)); //Create node
+    tmpNode->pos.x=listPtr->frontPtr->pos.x;
+    tmpNode->pos.y=listPtr->frontPtr->pos.y; //Assign data
+    tmpNode->nextPtr=NULL;
+    listPtr->frontPtr->nextPtr=listPtr->frontPtr;
+    return tmpNode->pos;
 
-//Fix these comments
+
 
 }
 
@@ -327,6 +330,23 @@ void addNodeAtBack(List *listPtr, Coord pos){
 
     //Create node
     //Assign Node with Null Pointer with address of new node
+    //go to tailPtr
+        ListNode *newNode=malloc(sizeof(ListNode)); //Create node
+    newNode->pos.x=pos.x;
+    newNode->pos.y=pos.y; //Assign data
+    newNode->nextPtr=NULL;
+
+    if (listPtr->backPtr == NULL){
+    listPtr->backPtr = newNode;
+}
+    else {
+
+    listPtr->backPtr->nextPtr=newNode;
+    newNode=listPtr->backPtr;
+
+    }
+
+
 
 }
 
