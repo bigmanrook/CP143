@@ -28,7 +28,7 @@ int main()
         printf("Enter in shape type:\n");
         scanf("%s", shape.type);
         printf("Enter in shape area:\n");
-        scanf("%s", shape.area);
+        scanf("%d", shape.area);
         printf("Enter in shape colour:\n");
         scanf("%s", shape.colour);
         wCount = fwrite(&shape,sizeof(Shape),1,fShapePtr);
@@ -39,7 +39,21 @@ int main()
             }
 
     }
+
+
     fclose(fShapePtr);
+    Shape shapeNew;
+    fShapePtr = fopen("shapes.dat", "r");
+while (fread(&shapeNew, sizeof(Shape), 1, fShapePtr) == 1) {
+    // Print the current record
+    printf("Shape type: %s\n", shapeNew.type);
+    printf("Shape area: %d\n", shapeNew.area);
+    printf("Shape area: %s\n", shapeNew.colour);
+    printf("--------\n");
+
+    // Skip the next record (move file pointer ahead by one Shape)
+    fseek(fShapePtr, sizeof(Shape), SEEK_CUR);
+}
 
     //printf("Type: %s, Area: %s, Colour: %s", shape.type, shape.area, shape.colour); //Test structure
 
