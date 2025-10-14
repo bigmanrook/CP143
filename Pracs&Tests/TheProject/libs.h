@@ -27,11 +27,13 @@
     ListNode *frontPtr, *backPtr;
     } List;
 
+    /**<
     typedef struct {
     char type[15];
     double area;
     char colour[10];
     } Shape;
+     */
 
 
     enum ResultType {SUCCESS, FAIL};
@@ -50,7 +52,7 @@
 
   //List function prototypes
 
-  List createList();
+  List* createList();
   int isEmpty(List list);
   void addNodeAtBack(List *listPtr, Coord pos); //Enqueue
   void addNodeAtFront(List *listPtr, Coord pos);//Push function

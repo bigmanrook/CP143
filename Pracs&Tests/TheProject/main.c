@@ -5,37 +5,24 @@
 int main()
 {
     int result;
-    //Sample Output
-    /*Enter the maze filename: maze1.txt -> take file name, search for file and read from file
-    Maze successfully loaded! (create error code)
-    Maze has 10 rows and 10 columns -> count chars in line, count how many lines are read (assuming all are square mazes)
-    Coordinates of start: (0,9) -> similar to finding delimiter
-    Coordinates of goal: (7,2) -> similar to finding delimiter
-    Printing the maze: -> read from maze for each char, for loops?
-
-    Test the functions in this main code before implementation
-    */
-
     FILE * fileptr;
     char file[256];
+    int count=0;
 
     printf("Enter in file name\n");
     scanf("%255s", file);
-    Maze maze, MazeCopy;  // Not a pointer, or use malloc
-    Coord startingpt;  // Not a pointer, or use malloc
-    Coord goal;  // Not a pointer, or use malloc
-    List list = createList();
+    Maze maze, MazeCopy;
+    Coord startingpt;
+    Coord goal;
+    List *list = createList();
 
     // Initialize maze structure
     maze.rows = 0;
     maze.cols = 0;
-    // maze.data = NULL;  // If you have a data field
-
 
     if (loadMaze(file, &maze, &startingpt, &goal)==FAIL){
-
+        free(list);
         return 1;
-
     }
     else {
         char command;
@@ -43,43 +30,42 @@ int main()
 
         MazeCopy = copyMaze(maze);
 
+        // Add starting position to list
+        addNodeAtFront(list, startingpt);
 
         do {
-            printf("Enter in up (U), down (D), left (L) or right (R)\nw");
+            printf("Enter in up (U), down (D), left (L) or right (R)\n");
             scanf(" %c", &command);
             result = executeCommand(&MazeCopy, &startingpt, command);
-            addNodeAtFront(&list, startingpt);
-            printf("Agent's Coordinates: (%d, %d)\n", list.frontPtr->pos.x, list.frontPtr->pos.y);
 
+            // Print current coordinates after each move
+            if (result == SUCCESS || result == FAIL) {
+                printf("Agent's Coordinates: (%d, %d)\n", startingpt.x, startingpt.y);
+            }
+
+            // Add position to list if move was successful or hit a wall
+            if (result == SUCCESS) {
+                addNodeAtBack(list, startingpt);
+            } else if (result == FAIL) {
+                // Still add to list even if move failed (hit wall/boundary)
+                addNodeAtBack(list, startingpt);
+            }
 
         } while (result!=SUCCESS);
 
         if (MazeCopy.data==NULL){
-
+            clearList(list);
+            free(list);
             return 2;
-
         }
         else {
+            printMaze(stdout, MazeCopy);
             emptyMaze(&maze);
             emptyMaze(&MazeCopy);
-
+            clearList(list);
+            free(list);
         }
-
-        //Program needs one list storing all coordinates, that will then be stored in a textfile
-        //Create list -> store first node in front,
-        //Every node needs to be added from the back after that
-
-
-
-
     }
-
-
-
-
 
     return 0;
 }
-
-
-

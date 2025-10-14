@@ -1,6 +1,6 @@
 #include "libs.h"
 
-
+const char commandArray[] = {'U', 'D', 'L', 'R'};
 
 //function declarations
 
@@ -154,209 +154,169 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
 
     switch (command){
         case 'U':  // Up = row-1
-
             if (y-1<0){
-
-            printf("Out of bounds\n");
-            return FAIL;
-
+                printf("Out of bounds\n");
+                return FAIL;
             } else if (mazePtr->data[y-1][x] == '#' || mazePtr->data[y-1][x] == ' ') {
                 printf("Cannot move up - wall or boundary\n");
+                return FAIL;
             } else if (mazePtr->data[y-1][x] == 'F') {
                 printf("Goal reached!\n");
                 mazePtr->data[y-1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y--;
-                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y-1][x] == '.') {
                 mazePtr->data[y-1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y--;
-                //printMaze(stdout, *mazePtr);
             }
             break;
 
         case 'D':  // Down = row+1
             if (y+1>=mazePtr->rows){
-
-            printf("Out of bounds\n");
-
-            return FAIL;
-
+                printf("Out of bounds\n");
+                return FAIL;
             } else if (mazePtr->data[y+1][x] == '#' || mazePtr->data[y+1][x] == ' ') {
                 printf("Cannot move down - wall or boundary\n");
+                return FAIL;
             } else if (mazePtr->data[y+1][x] == 'F') {
                 printf("Goal reached!\n");
                 mazePtr->data[y+1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y++;
-                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y+1][x] == '.') {
                 mazePtr->data[y+1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y++;
-                //printMaze(stdout, *mazePtr);
             }
             break;
 
         case 'R':  // Right = col+1
             if (x+1>=mazePtr->cols){
-
-            printf("Out of bounds\n");
-            return FAIL;
-
+                printf("Out of bounds\n");
+                return FAIL;
             } else if (mazePtr->data[y][x+1] == '#' || mazePtr->data[y][x+1] == ' ') {
                 printf("Cannot move right - wall or boundary\n");
+                return FAIL;
             } else if (mazePtr->data[y][x+1] == 'F') {
                 printf("Goal reached!\n");
                 mazePtr->data[y][x+1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x++;
-                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y][x+1] == '.') {
                 mazePtr->data[y][x+1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x++;
-                //printMaze(stdout, *mazePtr);
             }
             break;
 
         case 'L':  // Left = col-1
             if (x-1<0){
-
-            printf("Out of bounds\n");
-            return FAIL;
-
+                printf("Out of bounds\n");
+                return FAIL;
             } else if (mazePtr->data[y][x-1] == '#' || mazePtr->data[y][x-1] == ' ') {
                 printf("Cannot move left - wall or boundary\n");
+                return FAIL;
             } else if (mazePtr->data[y][x-1] == 'F') {
                 printf("Goal reached!\n");
                 mazePtr->data[y][x-1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x--;
-                //printMaze(stdout, *mazePtr);
                 return SUCCESS;
             } else if (mazePtr->data[y][x-1] == '.') {
                 mazePtr->data[y][x-1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x--;
-                //printMaze(stdout, *mazePtr);
             }
             break;
 
         default:
             printf("Please enter a valid command: U (up), D (down), L (left), or R (right)\n");
+            return FAIL;
     }
 
     return FAIL;
 }
 
 
-List createList(){
-
-List *list=malloc(sizeof(List));
-
-return *list;
-
+List* createList(){
+    List *list = malloc(sizeof(List));
+    list->frontPtr = NULL;
+    list->backPtr = NULL;
+    return list;
 }
 
 int isEmpty(List list){
 
     if (list.frontPtr==NULL && list.backPtr==NULL){
-        return 1;
+        return 0;
     }
-    return 0;
+    return 1;
 
 
 
 }
 
-void addNodeAtFront(List *listPtr, Coord pos){
-
-//List->frontPtr needs to become newPtr
-//Create newPtr
-//newPtr->data=whatever
-//newPtr->nextPtr=ist->frontPtr
-//List->frontPtr = newPtr;
-
-//Conditionals: Check if List is empty, if so, start list (frontPtr and backptr connected directly)
-//Conditional2: Check if only list not empty, then proceed normally
-    ListNode *newNode=malloc(sizeof(ListNode)); //Create node
-    newNode->pos.x=pos.x;
-    newNode->pos.y=pos.y; //Assign data
-    newNode->nextPtr=NULL;
+// Fixed addNodeAtBack function
+void addNodeAtBack(List *listPtr, Coord pos){
+    ListNode *newNode = malloc(sizeof(ListNode)); // Create node
+    newNode->pos.x = pos.x;
+    newNode->pos.y = pos.y; // Assign data
+    newNode->nextPtr = NULL;
 
     if (listPtr->frontPtr == NULL){
-    listPtr->backPtr = newNode;
-}
-    else {
-
-    newNode->nextPtr=listPtr->frontPtr;
-    listPtr->frontPtr = newNode;
-
+        listPtr->frontPtr = newNode;  // List is empty, so front = new node
+        listPtr->backPtr = newNode;   // and back = new node
     }
-
-
-
-
+    else {
+        listPtr->backPtr->nextPtr = newNode;  // Link old back to new node
+        listPtr->backPtr = newNode;           // Update back pointer
+    }
 }
 
-
+// Fixed removeNodeFromFront function
 Coord removeNodeFromFront(List *listPtr){
+    Coord pos = listPtr->frontPtr->pos;  // Save the position to return
 
-//List->frontPtr needs to become newPtr->nextptr
-//Create tmpPtr if you want to view node content
-//newPtr->nextPtr=NULL;
-//Free(ListPtr)
+    ListNode *tmpNode = listPtr->frontPtr;  // Save reference to front node
+    listPtr->frontPtr = listPtr->frontPtr->nextPtr;  // Move front pointer forward
 
-    ListNode *tmpNode=malloc(sizeof(ListNode)); //Create node
-    tmpNode->pos.x=listPtr->frontPtr->pos.x;
-    tmpNode->pos.y=listPtr->frontPtr->pos.y; //Assign data
-    tmpNode->nextPtr=NULL;
-    listPtr->frontPtr->nextPtr=listPtr->frontPtr;
-    return tmpNode->pos;
-
-
-
-}
-
-
-
-
-void addNodeAtBack(List *listPtr, Coord pos){
-
-    //Create node
-    //Assign Node with Null Pointer with address of new node
-    //go to tailPtr
-        ListNode *newNode=malloc(sizeof(ListNode)); //Create node
-    newNode->pos.x=pos.x;
-    newNode->pos.y=pos.y; //Assign data
-    newNode->nextPtr=NULL;
-
-    if (listPtr->backPtr == NULL){
-    listPtr->backPtr = newNode;
-}
-    else {
-
-    listPtr->backPtr->nextPtr=newNode;
-    newNode=listPtr->backPtr;
-
+    // If list is now empty, update back pointer too
+    if (listPtr->frontPtr == NULL){
+        listPtr->backPtr = NULL;
     }
 
-
-
+    free(tmpNode);  // Free the old front node
+    return pos;     // Return the saved position
 }
 
+// Bonus: Fixed addNodeAtFront function (had a bug too)
+void addNodeAtFront(List *listPtr, Coord pos){
+    ListNode *newNode = malloc(sizeof(ListNode)); // Create node
+    newNode->pos.x = pos.x;
+    newNode->pos.y = pos.y; // Assign data
+    newNode->nextPtr = listPtr->frontPtr;  // Point to current front
+
+    if (listPtr->frontPtr == NULL){
+        listPtr->backPtr = newNode;  // List is empty, so back = new node too
+    }
+
+    listPtr->frontPtr = newNode;  // Update front pointer
+}
 
 
 void clearList(List *listPtr){
-
-    //Loop through list
-    //Start at first ptr -> extract ptr, free node, move to next ptr and repeat (loop)
-
+    ListNode *current = listPtr->frontPtr;
+    while (current != NULL) {
+        ListNode *temp = current;
+        current = current->nextPtr;
+        free(temp);
     }
+    listPtr->frontPtr = NULL;
+    listPtr->backPtr = NULL;
+}
 
-const char commandArray[] = {'U', 'D', 'L', 'R'};
+
