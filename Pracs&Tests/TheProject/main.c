@@ -31,6 +31,7 @@ int main()
         MazeCopy = copyMaze(maze);
 
         // Add starting position to list
+
         addNodeAtFront(list, startingpt);
 
         do {
