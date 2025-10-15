@@ -3,19 +3,21 @@
 
 typedef struct node {
 
-int value;
-    struct Node *rightptr;
-    struct Node *leftptr;
+    int value;
+    struct node *rightptr;
+    struct node *leftptr;
 
 }Node;
 
 typedef struct tree {
 
-    struct Node *ptr;
+    struct node *ptr;
 
 }BT;
 
-
+void insertNode (Node **node, int value);
+void inOrder(Node *node);
+void outOrder(Node *node);
 
 int main()
 {
@@ -26,48 +28,44 @@ int main()
     root->leftptr=NULL;
     root->rightptr=NULL;
 
-    insertNode(root); //Testing out insertion
-    Node *curr=malloc(sizeof(Node)); //this is the root node
-    curr=root;
     //Inserting for set amount of times - user can set this value to any, and the placement of nodes is pretty simple considering its counting from 1-4
     //Only nodes on the right will be created because i is increasing
-    int amountoftime = 4;
+    int amountoftime = 5;
 
-    for (int i=0;i<amountoftime;i++){
+    for (int i=1;i<amountoftime;i++){
 
-        insertNode(curr, i);
-
-    }
-
-    //printing out nodes
-    curr=root;
-    for (int i=0;i<amountoftime;i++){
-
-        insertNode(curr, i);
+        insertNode(&root, i);
 
     }
+
+    inOrder(root);
+    outOrder(root);
 
     return 0;
 }
 
-void insertNode (Node *node, int value){
+void insertNode (Node **node, int value){
 
-    if (node->value<value){
+    Node *newNode=malloc(sizeof(Node));
 
-        Node *newLnode=malloc(sizeof(Node));
-        newLnode->value=value;
-        newLNode->rightptr=NULL;
-        newLNode->leftptr=NULL;
-        node->leftptr=newLnode;
+    if (*node==NULL){
+        newNode->value=value;
+        newNode->rightptr=NULL;
+        newNode->leftptr=NULL;
+        *node=newNode;
+        return;
+    }
+
+
+
+    if (value>(*node)->value){
+
+        insertNode(&((*node)->rightptr), value);
 
     }
-    else if (node->value<value){
+    else if (value<(*node)->value){
 
-        Node *newRnode=malloc(sizeof(Node));
-        newRnode->value=value;
-        newRNode->rightptr=NULL;
-        newRNode->leftptr=NULL;
-        node->rightptr=newRnode;
+        insertNode(&((*node)->leftptr), value);
 
     }
 
@@ -76,15 +74,27 @@ void insertNode (Node *node, int value){
 
 //traversal methods
 
-void inOrder(Node node){
+void inOrder(Node *node){
 
+    if (node!=NULL){
 
+        inOrder(node->leftptr);
+        printf("%d", node->value);
+        inOrder(node->rightptr);
+
+    }
 
 }
 
-void outOrder(){
+void outOrder(Node *node){
 
+    if (node!=NULL){
 
+        printf("%d", node->value);
+        outOrder(node->leftptr); //Due to the nature of the loop in main, this does nothing to the order of the node value printout (values only go in right branch)
+        outOrder(node->rightptr);
+
+    }
 
 }
 
