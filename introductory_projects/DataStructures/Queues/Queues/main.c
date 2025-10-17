@@ -16,6 +16,8 @@ typedef struct queue{
 void Push(q *queue, char c);
 int isEmpty(q *queue);
 void printQueue(q *queue);
+char Pop(q *queue);
+char Peek(q *queue);
 
 int main()
 {
@@ -32,8 +34,16 @@ int main()
 
     c='A';
     Push(queue1, c);
-    printQueue(queue1);
 
+    for (int i=0;i<25;i++){
+
+        c++;
+        Push(queue1, c);
+
+    }
+
+    printQueue(queue1);
+    printf("%c", Pop(queue1));
 
     return 0;
 }
@@ -52,12 +62,47 @@ void Push(q *queue, char c){
     }
     else {
 
-        n->nextptr=NULL;
-        n->data=c;
-        queue->back=n;
+        n->nextptr=NULL; //node next pointer nullified (last node)
+        n->data=c; //data put into node
+        queue->back->nextptr=n; //Assigning n to old node
+        queue->back=n; //making n your back node
+
 
     }
 
+
+}
+
+char Pop(q *queue){
+
+    if (isEmpty(queue)){
+
+        printf("Nothing in queue");
+
+    }
+    else {
+
+        char c = queue->front->data;
+        queue->front=queue->front->nextptr;
+        return c;
+
+    }
+
+}
+
+char Peek(q *queue){
+
+    if (isEmpty(queue)){
+
+        printf("Nothing in queue");
+
+    }
+    else {
+
+        char c = queue->front->data;
+        return c;
+
+    }
 
 }
 
@@ -68,6 +113,7 @@ int isEmpty(q *queue){
             return 1;
 
         }
+    return 0;
 
 }
 
@@ -77,7 +123,7 @@ void printQueue(q *queue){
 
     while (curr!=NULL){
 
-        printf("%c", curr->data);
+        printf("%c\n", curr->data);
         curr=curr->nextptr;
 
     }
