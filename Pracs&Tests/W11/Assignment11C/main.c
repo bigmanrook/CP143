@@ -28,7 +28,7 @@ int main()
         printf("Enter in shape type:\n");
         scanf("%s", shape.type);
         printf("Enter in shape area:\n");
-        scanf("%d", shape.area);
+        scanf("%d", &(shape.area));
         printf("Enter in shape colour:\n");
         scanf("%s", shape.colour);
         wCount = fwrite(&shape,sizeof(Shape),1,fShapePtr);

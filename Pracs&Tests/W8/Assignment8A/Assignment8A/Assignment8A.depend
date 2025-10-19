@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1758475565 source:c:\users\justg\documents\j wells\notes and coursework\year 1\s2\c programming\pracs&tests\w8\assignment8a\assignment8a\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+

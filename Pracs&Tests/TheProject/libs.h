@@ -4,7 +4,9 @@
   #include <stdlib.h>
   #include <ctype.h>
   #include <string.h>
-
+  #include <time.h>
+//Disclaimer: Claude.AI was used to debug in some cases where I was sleep deprived or just incapable of finding the
+//problem that I caused.
 
     //structures
 
@@ -47,7 +49,7 @@
   Maze copyMaze(Maze maze);
   Result loadMaze(const char filename[], Maze *mazePtr, Coord *startPtr, Coord *goalPtr);
   int countWallsInLastColumn(Maze maze);
-  Result executeCommand(Maze *mazePtr, Coord *posPtr, char command);
+  Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command);
   Result randomTraversal(const Maze *mazePtr, Coord start, Coord goal, List *pathPtr, int maxSteps);
 
   //List function prototypes

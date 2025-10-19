@@ -2,6 +2,9 @@
 
 const char commandArray[] = {'U', 'D', 'L', 'R'};
 
+//Disclaimer: Claude.AI was used to debug in some cases where I was sleep deprived or just incapable of finding the
+//problem that I caused.
+
 //function declarations
 
 char getNextChar(FILE *file) {
@@ -148,7 +151,7 @@ int countWallsInLastColumn(Maze maze) {
     return wallCount;
 }
 
-Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
+Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command){
     int x = posPtr->x;
     int y = posPtr->y;
 
@@ -170,6 +173,7 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y-1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y--;
+                return SUCCESS;
             }
             break;
 
@@ -190,6 +194,7 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y+1][x] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->y++;
+                return SUCCESS;
             }
             break;
 
@@ -210,6 +215,7 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y][x+1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x++;
+                return SUCCESS;
             }
             break;
 
@@ -230,6 +236,7 @@ Result executeCommand(Maze *mazePtr, Coord *posPtr, char command){
                 mazePtr->data[y][x-1] = 'A';
                 mazePtr->data[y][x] = '.';
                 posPtr->x--;
+                return SUCCESS;
             }
             break;
 
@@ -252,9 +259,9 @@ List* createList(){
 int isEmpty(List list){
 
     if (list.frontPtr==NULL && list.backPtr==NULL){
-        return 0;
+        return 1;
     }
-    return 1;
+    return 0;
 
 
 
@@ -277,14 +284,13 @@ void addNodeAtBack(List *listPtr, Coord pos){
     }
 }
 
-// Fixed removeNodeFromFront function
 Coord removeNodeFromFront(List *listPtr){
     Coord pos = listPtr->frontPtr->pos;  // Save the position to return
 
     ListNode *tmpNode = listPtr->frontPtr;  // Save reference to front node
     listPtr->frontPtr = listPtr->frontPtr->nextPtr;  // Move front pointer forward
 
-    // If list is now empty, update back pointer too
+
     if (listPtr->frontPtr == NULL){
         listPtr->backPtr = NULL;
     }
@@ -293,7 +299,6 @@ Coord removeNodeFromFront(List *listPtr){
     return pos;     // Return the saved position
 }
 
-// Bonus: Fixed addNodeAtFront function (had a bug too)
 void addNodeAtFront(List *listPtr, Coord pos){
     ListNode *newNode = malloc(sizeof(ListNode)); // Create node
     newNode->pos.x = pos.x;
@@ -319,4 +324,48 @@ void clearList(List *listPtr){
     listPtr->backPtr = NULL;
 }
 
+Result randomTraversal(const Maze *mazePtr, Coord start, Coord goal, List *pathPtr, int maxSteps){
 
+    //Move to any coordinate with move function
+    //Loop for max steps, if does not reach return FAIL, else return SUCCESS
+    //Store each coordinate in list path
+    //if SUCCESS, write maze to new file, and write the linked list, and clearList
+    Coord currCoord=start;
+    //Store this first position in the queue, and add on from there
+    addNodeAtFront(pathPtr, currCoord);
+    srand(time(NULL));
+    for (int i=0;i<maxSteps;i++){
+
+        int r=rand()%4;
+
+        Result result = executeCommand((Maze*)mazePtr, &currCoord, commandArray[r]);
+
+        if (result == SUCCESS) {
+            addNodeAtBack(pathPtr, currCoord);
+        }
+
+        if (currCoord.x==goal.x&&currCoord.y==goal.y){
+
+            return SUCCESS;
+
+        }
+
+    }
+
+    return FAIL;
+
+}
+
+void printListContent(FILE *stream, List list){
+
+    ListNode *node = list.frontPtr;
+
+    while (node!=NULL){
+
+        fprintf(stdout, "(%d, %d)", node->pos.x, node->pos.y );
+        node = node->nextPtr;
+
+    }
+    fprintf(stdout, "\n");
+
+}

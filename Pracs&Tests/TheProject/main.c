@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "libs.h"
 
+//Disclaimer: Claude.AI was used to debug in some cases where I was sleep deprived or just incapable of finding the
+//problem that I caused.
+
 int main()
 {
     int result;
@@ -14,14 +17,14 @@ int main()
     Maze maze, MazeCopy;
     Coord startingpt;
     Coord goal;
-    List *list = createList();
+    List *pathPtr = createList();
 
     // Initialize maze structure
     maze.rows = 0;
     maze.cols = 0;
 
     if (loadMaze(file, &maze, &startingpt, &goal)==FAIL){
-        free(list);
+        free(pathPtr);
         return 1;
     }
     else {
@@ -32,11 +35,14 @@ int main()
 
         // Add starting position to list
 
-        addNodeAtFront(list, startingpt);
+        addNodeAtFront(pathPtr, startingpt);
 
-        do {
-            printf("Enter in up (U), down (D), left (L) or right (R)\n");
-            scanf(" %c", &command);
+            //put the commented out code in do....while(result!=SUCCESS) loop
+            //printf("Enter in up (U), down (D), left (L) or right (R)\n");
+            //scanf(" %c", &command); //This needs to be automatically done by the computer
+
+
+            /*
             result = executeCommand(&MazeCopy, &startingpt, command);
 
             // Print current coordinates after each move
@@ -51,20 +57,26 @@ int main()
                 // Still add to list even if move failed (hit wall/boundary)
                 addNodeAtBack(list, startingpt);
             }
+            */
 
-        } while (result!=SUCCESS);
+        result = randomTraversal(&MazeCopy,startingpt,goal, pathPtr, 1000);
+
+
+
+
+        printListContent(stdout, *pathPtr);
 
         if (MazeCopy.data==NULL){
-            clearList(list);
-            free(list);
+            clearList(pathPtr);
+            free(pathPtr);
             return 2;
         }
         else {
             printMaze(stdout, MazeCopy);
             emptyMaze(&maze);
             emptyMaze(&MazeCopy);
-            clearList(list);
-            free(list);
+            clearList(pathPtr);
+            free(pathPtr);
         }
     }
 
