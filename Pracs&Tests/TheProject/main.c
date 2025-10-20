@@ -22,6 +22,7 @@ int main()
     // Initialize maze structure
     maze.rows = 0;
     maze.cols = 0;
+    srand(time(NULL));
 
     if (loadMaze(file, &maze, &startingpt, &goal)==FAIL){
         free(pathPtr);
@@ -59,7 +60,14 @@ int main()
             }
             */
 
-        result = randomTraversal(&MazeCopy,startingpt,goal, pathPtr, 1000);
+        //result = randomTraversal(&MazeCopy,startingpt,goal, pathPtr, 5000);
+
+        for (int i=0;i<4;i++) {
+
+            result = searchMaze(&MazeCopy, startingpt, goal);
+
+        }
+
 
 
 

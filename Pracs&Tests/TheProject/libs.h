@@ -51,6 +51,7 @@
   int countWallsInLastColumn(Maze maze);
   Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command);
   Result randomTraversal(const Maze *mazePtr, Coord start, Coord goal, List *pathPtr, int maxSteps);
+  Result searchMaze(Maze *auxMazePtr, Coord start, Coord goal);
 
   //List function prototypes
 

@@ -356,6 +356,67 @@ Result randomTraversal(const Maze *mazePtr, Coord start, Coord goal, List *pathP
 
 }
 
+Result searchMaze(Maze *auxMazePtr, Coord start, Coord goal){
+
+/*
+SET result TO FAIL
+CREATE A QUEUE TO STORE COORDINATES
+ADD THE START POSITION TO THE QUEUE
+WHILE THE QUEUE IS NOT EMPTY AND THE GOAL HAS NOT BEEN FOUND:
+REMOVE A POSITION FROM THE QUEUE AND STORE IT IN currentPos
+IF currentPos IS THE GOAL:
+SET result TO SUCCESS (I.E., GOAL HAS BEEN FOUND)
+ELSE:
+FOR EACH OF THE 4 POSSIBLE COMMANDS:
+TRY TO EXECUTE COMMAND; STORE NEW POSITION IN nextPos
+IF THE COMMAND COULD BE EXECUTED:
+IF nextPos HAS NOT BEEN VISITED BEFORE:
+STORE COMMAND AT nextPos IN AUXILIARY MAZE
+ADD nextPos TO THE QUEUE
+CLEAR THE QUEUE
+RETURN result
+*/
+
+
+    Result result = FAIL;
+    List *pathQueue = createList();
+    addNodeAtBack(pathQueue, start);
+
+    auxMazePtr->data[start.y][start.x] = 'S';
+
+    Coord currpos;
+
+    while (!isEmpty(*pathQueue)) {
+
+        currpos = removeNodeFromFront(pathQueue);
+        if ((currpos.x == goal.x) && (currpos.y == goal.y)) {
+            result = SUCCESS;
+            break;
+        }
+        for (int i = 0; i < 4; i++) {
+            Coord nextpos = currpos;
+            Result command = executeCommand((Maze*)auxMazePtr, &nextpos, commandArray[i]);
+
+            if (command == SUCCESS || command == FAIL) {
+                if (nextpos.x != currpos.x || nextpos.y != currpos.y) {
+                    if (auxMazePtr->data[nextpos.y][nextpos.x] == '.') {
+                        auxMazePtr->data[nextpos.y][nextpos.x] = commandArray[i];
+                        addNodeAtBack(pathQueue, nextpos);
+                    }
+                }
+            }
+        }
+    }
+
+    clearList(pathQueue);
+    free(pathQueue);
+
+    return result;
+}
+
+
+
+
 void printListContent(FILE *stream, List list){
 
     ListNode *node = list.frontPtr;
