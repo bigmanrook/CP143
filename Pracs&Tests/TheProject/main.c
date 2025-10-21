@@ -36,8 +36,6 @@ int main()
 
         // Add starting position to list
 
-        addNodeAtFront(pathPtr, startingpt);
-
             //put the commented out code in do....while(result!=SUCCESS) loop
             //printf("Enter in up (U), down (D), left (L) or right (R)\n");
             //scanf(" %c", &command); //This needs to be automatically done by the computer
@@ -62,17 +60,20 @@ int main()
 
         //result = randomTraversal(&MazeCopy,startingpt,goal, pathPtr, 5000);
 
-        for (int i=0;i<4;i++) {
-
-            result = searchMaze(&MazeCopy, startingpt, goal);
-
-        }
+        result = searchMaze(&MazeCopy, startingpt, goal);
 
 
 
-
+        extractPath(MazeCopy, startingpt, goal, pathPtr);
 
         printListContent(stdout, *pathPtr);
+        FILE * fileptr;
+        scanf("%s", file);
+        fileptr=fopen(strcat(file, ".txt"), "w");
+        printMaze(fileptr, MazeCopy);
+        printListContent(fileptr, *pathPtr);
+        fclose(fileptr);
+
 
         if (MazeCopy.data==NULL){
             clearList(pathPtr);
@@ -86,6 +87,8 @@ int main()
             clearList(pathPtr);
             free(pathPtr);
         }
+
+
     }
 
     return 0;

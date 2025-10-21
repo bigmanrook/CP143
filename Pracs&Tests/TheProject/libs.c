@@ -82,15 +82,15 @@ Result loadMaze(const char filename[], Maze *mazePtr, Coord *startPtr, Coord *go
 void printMaze(FILE *stream, Maze maze){
 
 
-        printf("\t");
+        fprintf(stream,"\t");
         for (int i=0; i<maze.cols; i++){
-            printf("%c", i+65);
+            fprintf(stream,"%d", i);
          }
-         printf("\n");
+         fprintf(stream,"\n");
 
 
         for (int i=0; i<maze.rows; i++){
-            printf("%d\t", i);
+            fprintf(stream ,"%d\t", i);
             fprintf(stream, "%s\n",maze.data[i]);
 
          }
@@ -158,20 +158,20 @@ Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command){
     switch (command){
         case 'U':  // Up = row-1
             if (y-1<0){
-                printf("Out of bounds\n");
+                //printf("Out of bounds\n");
                 return FAIL;
             } else if (mazePtr->data[y-1][x] == '#' || mazePtr->data[y-1][x] == ' ') {
-                printf("Cannot move up - wall or boundary\n");
+                //printf("Cannot move up - wall or boundary\n");
                 return FAIL;
             } else if (mazePtr->data[y-1][x] == 'F') {
                 printf("Goal reached!\n");
-                mazePtr->data[y-1][x] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y-1][x] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->y--;
                 return SUCCESS;
             } else if (mazePtr->data[y-1][x] == '.') {
-                mazePtr->data[y-1][x] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y-1][x] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->y--;
                 return SUCCESS;
             }
@@ -179,20 +179,20 @@ Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command){
 
         case 'D':  // Down = row+1
             if (y+1>=mazePtr->rows){
-                printf("Out of bounds\n");
+                //printf("Out of bounds\n");
                 return FAIL;
             } else if (mazePtr->data[y+1][x] == '#' || mazePtr->data[y+1][x] == ' ') {
-                printf("Cannot move down - wall or boundary\n");
+                //printf("Cannot move down - wall or boundary\n");
                 return FAIL;
             } else if (mazePtr->data[y+1][x] == 'F') {
                 printf("Goal reached!\n");
-                mazePtr->data[y+1][x] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y+1][x] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->y++;
                 return SUCCESS;
             } else if (mazePtr->data[y+1][x] == '.') {
-                mazePtr->data[y+1][x] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y+1][x] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->y++;
                 return SUCCESS;
             }
@@ -200,20 +200,20 @@ Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command){
 
         case 'R':  // Right = col+1
             if (x+1>=mazePtr->cols){
-                printf("Out of bounds\n");
+                //printf("Out of bounds\n");
                 return FAIL;
             } else if (mazePtr->data[y][x+1] == '#' || mazePtr->data[y][x+1] == ' ') {
-                printf("Cannot move right - wall or boundary\n");
+                //printf("Cannot move right - wall or boundary\n");
                 return FAIL;
             } else if (mazePtr->data[y][x+1] == 'F') {
                 printf("Goal reached!\n");
-                mazePtr->data[y][x+1] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y][x+1] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->x++;
                 return SUCCESS;
             } else if (mazePtr->data[y][x+1] == '.') {
-                mazePtr->data[y][x+1] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y][x+1] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->x++;
                 return SUCCESS;
             }
@@ -221,20 +221,20 @@ Result executeCommand(const Maze *mazePtr, Coord *posPtr, char command){
 
         case 'L':  // Left = col-1
             if (x-1<0){
-                printf("Out of bounds\n");
+                //printf("Out of bounds\n");
                 return FAIL;
             } else if (mazePtr->data[y][x-1] == '#' || mazePtr->data[y][x-1] == ' ') {
-                printf("Cannot move left - wall or boundary\n");
+                //printf("Cannot move left - wall or boundary\n");
                 return FAIL;
             } else if (mazePtr->data[y][x-1] == 'F') {
                 printf("Goal reached!\n");
-                mazePtr->data[y][x-1] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y][x-1] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->x--;
                 return SUCCESS;
             } else if (mazePtr->data[y][x-1] == '.') {
-                mazePtr->data[y][x-1] = 'A';
-                mazePtr->data[y][x] = '.';
+                //mazePtr->data[y][x-1] = 'A';
+                //mazePtr->data[y][x] = '.';
                 posPtr->x--;
                 return SUCCESS;
             }
@@ -382,8 +382,6 @@ RETURN result
     List *pathQueue = createList();
     addNodeAtBack(pathQueue, start);
 
-    auxMazePtr->data[start.y][start.x] = 'S';
-
     Coord currpos;
 
     while (!isEmpty(*pathQueue)) {
@@ -393,19 +391,34 @@ RETURN result
             result = SUCCESS;
             break;
         }
-        for (int i = 0; i < 4; i++) {
+        else{
+
+            for (int i = 0; i < 4; i++) {
             Coord nextpos = currpos;
             Result command = executeCommand((Maze*)auxMazePtr, &nextpos, commandArray[i]);
 
-            if (command == SUCCESS || command == FAIL) {
+
+            if (command == SUCCESS) {
                 if (nextpos.x != currpos.x || nextpos.y != currpos.y) {
-                    if (auxMazePtr->data[nextpos.y][nextpos.x] == '.') {
+                    if (auxMazePtr->data[nextpos.y][nextpos.x] == '.'||auxMazePtr->data[nextpos.y][nextpos.x] == 'F') {
                         auxMazePtr->data[nextpos.y][nextpos.x] = commandArray[i];
                         addNodeAtBack(pathQueue, nextpos);
                     }
                 }
             }
+
+            if ((nextpos.x == goal.x) && (nextpos.y == goal.y)) {
+            return SUCCESS;
+            }
+
+
         }
+
+        }
+
+
+
+
     }
 
     clearList(pathQueue);
@@ -414,7 +427,46 @@ RETURN result
     return result;
 }
 
+void extractPath(Maze auxMaze, Coord start, Coord goal, List *pathPtr){
 
+//Time 20 mins
+//Use queue as a stack instead. Remove from top to bottom basically
+
+    Coord currpos=goal;
+//Command obtained from position in maze...take out if statements
+
+    char command = auxMaze.data[currpos.y][currpos.x];
+    addNodeAtBack(pathPtr, currpos);
+    while (auxMaze.data[currpos.y][currpos.x]!='S'){
+
+
+
+        switch(command){
+
+            case 'U':
+                currpos.y=currpos.y + 1;
+                break;
+            case 'D':
+                currpos.y=currpos.y - 1;
+                break;
+            case 'R':
+                currpos.x=currpos.x - 1;
+                break;
+            case 'L':
+                currpos.x=currpos.x + 1;
+                break;
+
+        }
+
+        command = auxMaze.data[currpos.y][currpos.x];
+        addNodeAtBack(pathPtr, currpos);
+
+    }
+
+
+
+
+}
 
 
 void printListContent(FILE *stream, List list){
@@ -423,10 +475,11 @@ void printListContent(FILE *stream, List list){
 
     while (node!=NULL){
 
-        fprintf(stdout, "(%d, %d)", node->pos.x, node->pos.y );
+        fprintf(stream, "(%d, %d)", node->pos.x, node->pos.y );
         node = node->nextPtr;
+        fprintf(stream, "\n");
 
     }
-    fprintf(stdout, "\n");
+    fprintf(stream, "\n");
 
 }
