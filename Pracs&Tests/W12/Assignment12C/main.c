@@ -9,29 +9,18 @@ typedef struct node {
 
 }Node;
 
-typedef struct tree {
-
-    struct node *ptr;
-
-}BT;
-
-typedef BT *BTPtr;
-
 
 void insertNode (Node **node, char value);
 void inOrder(Node *node);
 void preOrder(Node *node);
 void postOrder(Node *node);
-void deleteTree(BT *BTPtr);
+void deleteTree(Node **node);
 
 int main()
 {
 
     //Code can be written to write data to the binary tree
-    Node *root=malloc(sizeof(Node)); //this is the root node
-    root->value=0;
-    root->leftptr=NULL;
-    root->rightptr=NULL;
+    Node *root=NULL;
 
     //Inserting for set amount of times - user can set this value to any, and the placement of nodes is pretty simple considering its counting from 1-4
     //Only nodes on the right will be created because i is increasing
@@ -40,10 +29,10 @@ int main()
 
     scanf("%s", buffer);
     int i =0;
-    char c=buffer[i];
+    char c;
 
 
-    while (i<20&&c!='\0'){
+    while (i<20&&buffer[i]!='\0'){
 
         c = buffer[i++];
         insertNode(&root, c);
@@ -53,6 +42,8 @@ int main()
 
     inOrder(root);
     preOrder(root);
+    postOrder(root);
+    deleteTree(&root);
 
     return 0;
 }
@@ -92,7 +83,7 @@ void inOrder(Node *node){
     if (node!=NULL){
 
         inOrder(node->leftptr);
-        printf("%c", node->value);
+        printf("%c\n", node->value);
         inOrder(node->rightptr);
 
     }
@@ -103,7 +94,7 @@ void preOrder(Node *node){
 
     if (node!=NULL){
 
-        printf("%c", node->value);
+        printf("%c\n", node->value);
         preOrder(node->leftptr);
         preOrder(node->rightptr);
 
@@ -115,23 +106,24 @@ void postOrder(Node *node){
 
     if (node!=NULL){
 
-        printf("%c", node->value);
-        postOrder(node->rightptr);
         postOrder(node->leftptr);
+        postOrder(node->rightptr);
+        printf("%c\n", node->value);
 
 
     }
 
+
 }
 
 
-void deleteTree(BT *BTPtr) {
-    if (*BTPtr != NULL) {
-    deleteTree(&((*BTPtr)->leftPtr));
-    deleteTree(&((*BTPtr)->rightPtr));
-    printf("Deleting node containing %c\n", (*BTPtr)->data);
-    free(*BTPtr);
-    *BTPtr = NULL;
+void deleteTree(Node **node) {
+    if (*node != NULL) {
+    deleteTree(&((*node)->leftptr));
+    deleteTree(&((*node)->rightptr));
+    printf("Deleting node containing %c\n", (*node)->value);
+    free(*node);
+    *node = NULL;
     }
 } // function deleteTree - from practical 12 page
 
